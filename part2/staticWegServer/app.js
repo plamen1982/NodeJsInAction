@@ -26,6 +26,11 @@ app.use((req, res, next) => {
         }
     })
 })
+// 404 is always ot the bottom of all middlewares no matter what.
+app.use((req, res) => {
+    res.status(404);
+    res.sendFile("File not found");
+})
 
 app.listen(PORT, () => {
     console.log(`App started on port: ${PORT}`)
