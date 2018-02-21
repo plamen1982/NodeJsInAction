@@ -6,7 +6,11 @@ let app = express();
 let varPath = path.join(__dirname, "avatar.jpg")
 
 app.use((req, res) => {
-    res.sendFile(varPath);
+    res.sendFile(varPath, (err)=>{
+        if(err) {
+            next(new Error("Error sending file!"))
+        }
+    });
 });
 
 app.listen(3000, ()=>{
