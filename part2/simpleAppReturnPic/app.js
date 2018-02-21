@@ -13,6 +13,11 @@ app.use((req, res) => {
     });
 });
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    next(err);
+})
+
 app.listen(3000, ()=>{
     console.log("App started on port 3000");
 });
