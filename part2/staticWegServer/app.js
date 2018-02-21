@@ -1,16 +1,13 @@
 const express = require('express');
+const logger = require('morgan');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
 
 const PORT = 3000;
 
 let app = express();
 
-app.use((req, res, next) => {
-    console.log(`Request IP: ${req.url}`);
-    console.log(`Request date: ${new Date()}`);
-    next();
-});
+app.use(logger("short"));
 
 app.use((req, res, next) => {
     let filePath = path.join(__dirname, "static", req.url);
