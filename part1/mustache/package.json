@@ -1,0 +1,14 @@
+{
+  "name": "mustache-funny-greeting",
+  "version": "0.2.0",
+  "description": "Greeting Nikolas Cage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PH",
+  "license": "ISC",
+  "dependencies": {
+    "mustache": "^2.3.0"
+  }
+}
