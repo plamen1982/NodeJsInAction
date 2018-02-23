@@ -24,7 +24,7 @@ $(()=> {
             let dailySummary = data.dailySummary;
 
             $h1.html(`It is ${temperature} &#176 F in ${zip}. State: ${state}, city: ${city}`);
-            $h2.html(`Windspeed: ${windSpeed}`);
+            $h2.html(`Windspeed: ${windSpeed} mph`);
             $h3.html(`Description: ${dailySummary}`);
         });
 
