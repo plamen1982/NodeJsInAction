@@ -6,3 +6,7 @@ const userSchema = mongoose.Schema({
     displayName: String,
     bio: String
 });
+
+userSchema.methods.name = () => {
+    return this.displayName || this.username
+};
