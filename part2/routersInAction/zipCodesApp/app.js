@@ -24,6 +24,9 @@ app.get(/^\/(\d{5})$/, (req, res, next) => {
         return;
     }
 
+    let city = location.city;
+    let state = location.state;
+
     let latitude = location.latitude;
     let longitude = location.longitude;
 
@@ -32,10 +35,16 @@ app.get(/^\/(\d{5})$/, (req, res, next) => {
             next();
             return;
         }
+        console.log(data);
 
         res.json({
             zipcode: zipcode, 
-            temperature: data.currently.temperature
+            temperature: data.currently.temperature,
+            icon: data.currently.icon,
+            windSpeed: data.currently.windSpeed,
+            dailySummary: data.daily.summary,
+            city: city,
+            state: state
         });
     });
 });
