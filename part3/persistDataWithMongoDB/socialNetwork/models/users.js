@@ -1,3 +1,5 @@
+import { isMaster } from 'cluster';
+
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
 
@@ -36,3 +38,9 @@ userSchema.pre('save', (done)=>{
         });
     });
 });
+
+userSchema.methods.checkPassword = (guess, done) => {
+    bcrypt.compare(guess, this.password, (err, isMatch) => {
+        done(err, isMatch);
+    });
+};
