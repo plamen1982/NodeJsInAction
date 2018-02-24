@@ -18,7 +18,7 @@ const noop = () => {};
 //runs before model is saved
 userSchema.pre('save', function (done) {
 
-    let user = this
+    let user = this;
 //skips if password is not modified
     if(!user.isModified('password')) {
         return done();
