@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 
 let User = require('./models/user');
 
@@ -19,5 +20,33 @@ router.get('/', (req, res, next) => {
             res.render('index', { users: users });
         });
 });
+
+router.get('/signup', (req, res) => {
+    res.render('signup')
+});
+
+router.post('/signup', (req, res, next) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    User.findOne({ username: username }, (err, name) => {
+        if(err) { return next(err) }
+        if(name) {
+            req.flash('error', 'User already exists');
+            return (res.redirect('/signup'));
+        }
+
+        let newUser = new User({
+            username: username,
+            password: password
+        });
+
+        newUser.save(next);
+    });
+}, passport.authenticate('login', {
+    successRedirect: '/',
+    failureRedirect: 'signup',
+    failureFlash: true
+}));
 
 module.exports = router;

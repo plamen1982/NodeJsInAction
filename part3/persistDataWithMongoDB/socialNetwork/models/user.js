@@ -16,11 +16,11 @@ let userSchema = mongoose.Schema({
 const noop = () => {};
 
 //runs before model is saved
-userSchema.pre('save', (done)=>{
-    let user = this;
+userSchema.pre('save', function (done) {
 
+    let user = this
 //skips if password is not modified
-    if(!user.isModified("password")) {
+    if(!user.isModified('password')) {
         return done();
     }
 //generate a salt for the hash, and calls the inner function to completed
@@ -41,7 +41,7 @@ userSchema.methods.checkPassword = (guess, done) => {
     });
 };
 
-userSchema.methods.name = () => {
+userSchema.methods.name = function () {
     return this.displayName || this.username
 };
 

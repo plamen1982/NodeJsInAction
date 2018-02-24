@@ -17,6 +17,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//{ extended: false } option for more secure and simpler parsing
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
