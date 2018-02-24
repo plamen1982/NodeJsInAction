@@ -5,13 +5,13 @@ const User = require('./models/user');
 module.exports = () => {
     
     passport.serializeUser((user, done) => {
-        done(null, use._id);
+        done(null, user._id);
     });
 
     passport.deserializeUser((id, done) => {
         User.findById(id, (err, user) => {
             done(err, user);
-        })
+        });
     });
 
     passport.use('login', new LocalStrategy((username, password, done) => {

@@ -27,15 +27,15 @@ app.use(cookieParser());
 
 app.use(session({
     secret: 'lkjdfsalkjdfsakl;',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(flash());
 
+
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(routes);
 
 app.listen(app.get('port'), () => {

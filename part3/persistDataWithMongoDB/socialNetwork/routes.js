@@ -62,10 +62,11 @@ router.post('/login', passport.authenticate('login', {
     failureFlash: true
 }));
 
-router.get('/logout', (res, req) => {
+router.post('/logout', (res, req) => {
     req.logout();
-    res.redirect('/');
+    res.end('/');
 });
+
 
 function ensureAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
@@ -78,6 +79,20 @@ function ensureAuthenticated(req, res, next) {
 
 router.get('/edit', ensureAuthenticated, (req, res) => {
     res.render('edit');
+});
+
+router.post('/edit', ensureAuthenticated, (req, res, next) => {
+    //in req.user, user is populated by passport.js when we were authenticated
+    console.log(req.body.displayName);
+    console.log(req.body.bio);
+    req.user.displayName = req.body.displayName;
+    req.user.bio = req.body.bio;
+    req.user.save((err) => {
+        next(err);
+        return;
+    });
+    req.flash('info', 'Profile updated!');
+    res.redirect('/');
 });
 
 module.exports = router;
