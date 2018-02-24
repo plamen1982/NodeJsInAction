@@ -1,11 +1,9 @@
-import { isMaster } from 'cluster';
-
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
 
 const SALT_FACTOR = 10;
 
-const userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
@@ -13,11 +11,9 @@ const userSchema = mongoose.Schema({
     bio: String
 });
 
-userSchema.methods.name = () => {
-    return this.displayName || this.username
-};
-//do nothing function fot use with bcrypt module
-let noop = () => {};
+
+//do nothing function for use with bcrypt module
+const noop = () => {};
 
 //runs before model is saved
 userSchema.pre('save', (done)=>{
@@ -44,3 +40,11 @@ userSchema.methods.checkPassword = (guess, done) => {
         done(err, isMatch);
     });
 };
+
+userSchema.methods.name = () => {
+    return this.displayName || this.username
+};
+
+let User = mongoose.model('User', userSchema);
+
+module.exports = User;
