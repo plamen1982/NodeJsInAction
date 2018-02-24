@@ -6,7 +6,10 @@ let User = require('./models/user');
 let router = express.Router();
 
 router.use((req, res, next) => {
+
+    //req.user is populated by Passport, currentUser accessible to all views
     res.locals.currentUser = req.user;
+    //req.flash is populated by connect-flash
     res.locals.errors = req.flash('error');
     res.locals.info = req.flash('info');
     next();
@@ -51,6 +54,30 @@ router.post('/signup', (req, res, next) => {
 
 router.get('/login', (req, res) => {
     res.render('login');
+});
+
+router.post('/login', passport.authenticate('login', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
+router.get('/logout', (res, req) => {
+    req.logout();
+    res.redirect('/');
+});
+
+function ensureAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        next();
+    } else { 
+        req.flash('info', 'You must be logged in to see this page.');
+        res.redirect('/login');
+    }
+}
+
+router.get('/edit', ensureAuthenticated, (req, res) => {
+    res.render('edit');
 });
 
 module.exports = router;
