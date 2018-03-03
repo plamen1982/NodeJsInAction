@@ -1,0 +1,44 @@
+extends includes/layout.pug 
+block main-header
+    include includes/header.pug
+block main-content
+    main
+        h1 Order details
+        div(class="catalog")
+            div(class="column")
+                img(src="/img/chicken-21.png")
+            div(class="column")
+                h2 Chicken doner, 21cm
+                h3 From 22.Oct 2017 10:35
+                div(class="toppings")
+                    span Pickels 
+                        br
+                    span Tomato
+                        br
+                    span Onion
+                        br
+                    span Letuuce
+                        br
+                div(class="status")
+                    div(class="status-block")
+                        span(class="progress-right")
+                        span(class="checkpoint")
+                        br
+                        span(class="progress-text") Pending
+                    div(class="status-block")
+                        span(class="progress-left")
+                        span(class="progress-right")
+                        span(class="checkpoint")
+                        br
+                        span(class="progress-text") In progress
+                    div(class="status-block")
+                        span(class="progress-left") 
+                        span(class="progress-right")
+                        span(class="checkpoint")
+                        br
+                        span(class="progress-text") In transit
+                    div(class="status-block")
+                        span(class="progress-left")                    
+                        span(class="checkpoint")
+                        br
+                        span(class="progress-text") Delivered                        

@@ -1,5 +1,6 @@
 const express = require('express');
 const stylus = require('stylus');
+const morgan = require('morgan');
 
 module.exports = (app, config) => {
 
@@ -14,6 +15,8 @@ module.exports = (app, config) => {
 
     app.set('view engine', 'pug');
     app.set('views', config.rootPath + '/views');
+
+    app.use(morgan('short'));
 
     app.use(express.static(config.rootPath + '/public'));
 }

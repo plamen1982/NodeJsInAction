@@ -1,0 +1,27 @@
+extends includes/layout.pug 
+block main-header
+    include includes/header.pug
+block main-content
+    h1 Customize your order
+    div(class="catalog")
+        div(class="column")
+            img(src="/img/chicken-21.png")
+        div(class="column")
+            h2 Chicken doner, 21cm
+            h3 Toppings
+            div(class="toppings")
+                form(method="post" action="#")
+                    input(name="product_id" type="hidden" value="chicken_21")
+                    input(name="topping01" type="checkbox" value="topping01" checked)
+                    label(for="topping01") Pickles
+                    input(name="topping02" type="checkbox" value="topping02" checked)
+                    label(for="topping02") Tomato
+                    input(name="topping03" type="checkbox" value="topping03" checked)
+                    label(for="topping03") Onion
+                    input(name="topping04" type="checkbox" value="topping04" checked)
+                    label(for="topping04") Lettecu
+                    input(name="topping05" type="checkbox" value="topping05" checked)
+                    label(for="topping05") Hot souce
+                    input(name="topping06" type="checkbox" value="topping06" checked)
+                    label(for="topping06") Extra Souse
+                a(class="button" href="/order-details") Checkout

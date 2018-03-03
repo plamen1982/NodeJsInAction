@@ -111,6 +111,7 @@ main {
   width: 20%;
   position: relative;
   height: 4em;
+  float: left;
 }
 .checkpoint {
   display: inline-block;
@@ -142,6 +143,9 @@ main {
   height: 0;
   border: 5px solid #ffdc68;
 }
+.progress-text {
+  margin-right: 40px;
+}
 .control {
   width: 16px;
   height: 16px;
@@ -159,8 +163,4 @@ main {
 .control-img {
   width: 16px;
   height: 16px;
-}
-#custom {
-  font-size: 40px;
-  background-color: #f00;
 }
