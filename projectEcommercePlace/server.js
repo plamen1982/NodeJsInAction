@@ -7,20 +7,30 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const pug = require('pug');
 
-const routes = require('./routes/routes');
+const router = require('./routes/router');
 
 const PORT = process.env.PORT || 3040;
+
 let app = express();
 
-// require('./server/express')(app);
+require('./server/express')(app);
 
 app.set('view engine', 'pug');
 app.set('views', path.resolve(__dirname, 'views'));
 
-// app.use('/', routes);
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Donur place', message: 'Hello new customer'})
-})
+app.use(stylus.middleware(
+    {
+        src: path.normalize(__dirname) + '/public',
+        compile: (str, path) => {
+            return stylus(str).set('filename', path);
+        }
+    }
+));
+
+app.use(express.static(path.resolve(__dirname, 'public')));
+
+app.use(router);
+
 app.listen(PORT, () => {
 
     console.log(`Server is running on port: ${PORT}`);
