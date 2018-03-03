@@ -13,21 +13,9 @@ const PORT = process.env.PORT || 3040;
 
 let app = express();
 
-require('./server/express')(app);
+let config = require('./server/config')
 
-app.set('view engine', 'pug');
-app.set('views', path.resolve(__dirname, 'views'));
-
-app.use(stylus.middleware(
-    {
-        src: path.normalize(__dirname) + '/public',
-        compile: (str, path) => {
-            return stylus(str).set('filename', path);
-        }
-    }
-));
-
-app.use(express.static(path.resolve(__dirname, 'public')));
+require('./server/express')(app, config);
 
 app.use(router);
 
