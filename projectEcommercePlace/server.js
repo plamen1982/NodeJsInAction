@@ -1,19 +1,15 @@
 const express = require('express');
-const path = require('path');
-const stylus = require('stylus');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
-const passport = require('passport');
-const pug = require('pug');
+const mongoose = require('mongoose');
 
 const router = require('./routes/router');
 
-const PORT = process.env.PORT || 3040;
+const PORT = process.env.PORT || 3050;
 
 let app = express();
 
-let config = require('./server/config')
+let config = require('./server/config');
+
+require('./server/mongoose')(mongoose);
 
 require('./server/express')(app, config);
 

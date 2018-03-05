@@ -1,6 +1,8 @@
 const express = require('express');
 const stylus = require('stylus');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 
 module.exports = (app, config) => {
 
@@ -18,5 +20,10 @@ module.exports = (app, config) => {
 
     app.use(morgan('short'));
 
+    app.use(flash());
+
     app.use(express.static(config.rootPath + '/public'));
+
+    app.use(bodyParser.urlencoded({ extended: false }));
+
 }

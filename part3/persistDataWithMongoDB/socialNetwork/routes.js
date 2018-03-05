@@ -62,9 +62,10 @@ router.post('/login', passport.authenticate('login', {
     failureFlash: true
 }));
 
-router.post('/logout', (res, req) => {
+router.get('/logout', (req, res, next) => {
     req.logout();
-    res.end('/');
+    res.redirect('/');
+    res.end();
 });
 
 

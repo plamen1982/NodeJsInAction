@@ -1,0 +1,21 @@
+extends ../includes/layout.pug 
+
+block main-header
+	include ../includes/header.pug
+
+block main-content
+	main
+		form(method="post" action='/register')
+			div
+				h2 Register
+			div
+				label(for="username") Username
+				input(id="username" name="username" type="text" class="input")
+			div
+				label(for="firstName") First Name - Optional
+				input(id="firstName" name="firstName" type="text" class="input")
+			div
+				label(for="password") Password
+				input(id="password" name="password" type="text" class="input")
+			div
+				input(value="Submit" type="submit" class="login" class="input")
