@@ -1,13 +1,24 @@
 header
     span(class="logo") Doner Place
-    span(class="greeting") Welcome, Pesho!
-        a(href="#") logout
-    ul(class="menu")
-        li
-            a(class="button" href="/") Home
-        li
-            a(class="button" href="/order-status") Order Status
-        li
-            a(class="button" href="/login") Login
-        li
-            a(class="button" href="/register") Register
+    if currentUser
+        span(class="username") - Hi, #{currentUser.username} !
+
+        ul(class="menu")
+            li
+                a(class="button" href="/") Home
+            li
+                a(class="button" href="/order-status") Order Status
+            li
+                a(class="button" href="/logout") Logout
+ 
+    else
+
+        ul(class="menu")
+            li
+                a(class="button" href="/") Home
+            li
+                a(class="button" href="/order-status") Order Status
+            li
+                a(class="button" href="/login") Login
+            li
+                a(class="button" href="/register") Register

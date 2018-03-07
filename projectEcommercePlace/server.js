@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const router = require('./routes/router');
+let setUpPassport = require('./server/utilities/setuppassport');
 
 const PORT = process.env.PORT || 3050;
 
@@ -12,6 +13,8 @@ let config = require('./server/config');
 require('./server/mongoose')(mongoose);
 
 require('./server/express')(app, config);
+
+setUpPassport();
 
 app.use(router);
 

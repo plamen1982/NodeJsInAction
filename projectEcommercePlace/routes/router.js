@@ -5,63 +5,89 @@ let User = require('../models/User');
 
 let router = express.Router();
 
+router.use((req, res, next) => {
 
-    router.get('/', (req, res) => {
-        res.render('index');
-    });
+    res.locals.currentUser = req.user;
+    console.log(req.user);
+    res.locals.errors = req.flash('error');
+    res.locals.info = req.flash('info');
+    next();
 
-    router.get('/index-admin', (req, res) => {
-        res.render('index-admin');
-    });
+});
 
-    router.get('/create-product', (req, res) => {
-        res.render('create-product');
-    });
+router.get('/', (req, res) => {
+    res.render('index');
+});
 
-    router.get('/customize-order', (req, res) => {
-        res.render('customize-order');
-    });
+router.get('/index-admin', (req, res) => {
+    res.render('index-admin');
+});
 
-    router.get('/order-details', (req, res) => {
-        res.render('order-details');
-    });
+router.get('/create-product', (req, res) => {
+    res.render('create-product');
+});
 
-    router.get('/order-status', (req, res) => {
-        res.render('order-status');
-    });
+router.get('/customize-order', (req, res) => {
+    res.render('customize-order');
+});
 
-    router.get('/order-status-admin', (req, res) => {
-        res.render('order-status-admin');
-    });
+router.get('/order-details', (req, res) => {
+    res.render('order-details');
+});
 
-    router.get('/login', (req, res) => {
-        res.render('account/login');
-    });
-    router.post('/login', (req, res, next) => {
-        User.findOne({ username: username }, (err, resultUsername) => {
-            if(err) {
-                return next(err);
-            } else if(resultUsername) {
-                req.flash('error', 'User already exists');
-                return res.redirect('/register')
-            } 
+router.get('/order-status', (req, res) => {
+    res.render('order-status');
+});
 
-            let newUser = new User({
-                username, 
-                password
-            });
+router.get('/order-status-admin', (req, res) => {
+    res.render('order-status-admin');
+});
 
-            newUser.save(next);
+router.get('/login', (req, res) => {
+    res.render('account/login');
+});
+router.post('/login', passport.authenticate('login', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
 
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+    res.end();
+});
+
+router.get('/register', (req, res) => {
+    res.render('account/register');
+});
+router.post('/register', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    User.findOne({ username: username }, (err, resultUser) => {
+        if(err) {
+            return next(err);
+        } else if(resultUser) {
+            req.flash('error', 'User already exists');
+            return res.redirect('/register')
+        } 
+
+        let newUser = new User({
+            username: username, 
+            password: password
         });
-    });
 
-    router.get('/register', (req, res) => {
-        res.render('account/register');
-    });
-    router.post('/register', (req, res) => {
-        let username = req.body.username;
-        let password = req.body.password;
-    });
-    
+        newUser.save(next);
+
+    } , passport.authenticate('login', {
+        successRedirect: '/',
+        failureRedirect: 'signup',
+        failureFlash: true
+    })
+);
+
+
+});
+
 module.exports = router;
