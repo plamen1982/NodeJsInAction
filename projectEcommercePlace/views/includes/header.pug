@@ -1,18 +1,31 @@
 header
     span(class="logo") Doner Place
     if currentUser
-        span(class="username") - Hi, #{currentUser.username} !
+        if currentUser.roles == 'admin'
+            span(class="username") - Welcome Master, #{currentUser.username}!
 
-        ul(class="menu")
-            li
-                a(class="button" href="/") Home
-            li
-                a(class="button" href="/order-status") Order Status
-            li
-                a(class="button" href="/logout") Logout
- 
+            ul(class="menu")
+                li
+                    a(class="button" href="/") Home
+                li
+                    a(class="button" href="/order-status") Order Status
+                li
+                    a(class="button" href="/create-product") Create Product
+                li
+                    a(class="button" href="/customize-product") Customize Product
+                li
+                    a(class="button" href="/logout") Logout
+        else 
+            span(class="username") - Welcome Dear, #{currentUser.username}!
+
+            ul(class="menu")
+                li
+                    a(class="button" href="/") Home
+                li
+                    a(class="button" href="/order-status") Order Status
+                li
+                    a(class="button" href="/logout") Logout
     else
-
         ul(class="menu")
             li
                 a(class="button" href="/") Home

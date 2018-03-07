@@ -52,42 +52,45 @@ router.post('/login', passport.authenticate('login', {
     failureFlash: true
 }));
 
+router.get('/register', (req, res) => {
+    res.render('account/register');
+});
+router.post('/register', (req, res, next) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+        User.findOne({ username: username }, (err, resultUser) => {
+            if(err) {
+
+                return next(err);
+            } 
+
+            if(resultUser) {
+            
+                req.flash('error', 'User already exists');
+                return res.redirect('/register')
+            } 
+                
+            
+            let newUser = new User({
+                username: username, 
+                password: password
+            });
+
+            newUser.save(next);
+        })
+    } , passport.authenticate('login', {
+            successRedirect: '/',
+            failureRedirect: '/register',
+            failureFlash: true
+}));
+
 router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
     res.end();
 });
 
-router.get('/register', (req, res) => {
-    res.render('account/register');
-});
-router.post('/register', (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
 
-    User.findOne({ username: username }, (err, resultUser) => {
-        if(err) {
-            return next(err);
-        } else if(resultUser) {
-            req.flash('error', 'User already exists');
-            return res.redirect('/register')
-        } 
-
-        let newUser = new User({
-            username: username, 
-            password: password
-        });
-
-        newUser.save(next);
-
-    } , passport.authenticate('login', {
-        successRedirect: '/',
-        failureRedirect: 'signup',
-        failureFlash: true
-    })
-);
-
-
-});
 
 module.exports = router;
